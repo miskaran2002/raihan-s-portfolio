@@ -22,7 +22,6 @@ const textAnimation = {
         transition: { duration: 1, delay: 0.5, ease: "easeOut" },
     },
 };
-
 const MoreAboutButton = () => {
     const [isClicked, setIsClicked] = useState(false);
 
@@ -30,16 +29,16 @@ const MoreAboutButton = () => {
         <motion.button
             onClick={() => setIsClicked(!isClicked)}
             whileTap={{ scale: 0.9 }}
-            animate={{
-                color: isClicked ? "#2563EB" /* blue-600 */ : "#06b6d4" /* cyan-400 */,
-                transition: { duration: 0.3 },
-            }}
-            className="inline-flex items-center space-x-2 font-semibold cursor-pointer"
+            className={`
+                inline-flex items-center space-x-2 font-semibold cursor-pointer 
+                px-4 py-2 rounded-lg transition-colors
+                ${isClicked ? "bg-blue-600 text-white" : "bg-cyan-700 bg-opacity-30 text-white hover:bg-cyan-600 hover:bg-opacity-50"}
+            `}
         >
             <span>More About Me</span>
             <motion.svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10"
+                className="h-5 w-5"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -52,6 +51,8 @@ const MoreAboutButton = () => {
         </motion.button>
     );
 };
+
+
 
 const Homepage = () => {
     return (
@@ -90,7 +91,7 @@ const Homepage = () => {
                         backend integration to deliver complete web solutions.
                     </p>
 
-                    <NavLink to="/about" className="inline-block text-2xl">
+                    <NavLink to="/about" className="inline-block text-xl">
                         <MoreAboutButton />
                     </NavLink>
                 </motion.div>
