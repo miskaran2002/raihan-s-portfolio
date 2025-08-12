@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -44,11 +45,23 @@ const Contact = () => {
         }
     };
 
+    const containerVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" },
+        },
+    };
+
     return (
-        <section
+        <motion.section
             id="contact"
             className="min-h-screen px-6 md:px-20 py-20 text-white flex flex-col md:flex-row gap-12 relative z-10"
             style={{ background: "transparent" }} // no background to show particles
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
         >
             {/* Contact Form */}
             <div className="flex-1 max-w-xl mx-auto">
@@ -58,7 +71,10 @@ const Contact = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label htmlFor="name" className="block mb-2 font-semibold text-white drop-shadow-md">
+                        <label
+                            htmlFor="name"
+                            className="block mb-2 font-semibold text-white drop-shadow-md"
+                        >
                             Name
                         </label>
                         <input
@@ -71,11 +87,16 @@ const Contact = () => {
                             onChange={handleChange}
                             autoComplete="off"
                         />
-                        {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
+                        {errors.name && (
+                            <p className="text-red-500 mt-1">{errors.name}</p>
+                        )}
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block mb-2 font-semibold text-white drop-shadow-md">
+                        <label
+                            htmlFor="email"
+                            className="block mb-2 font-semibold text-white drop-shadow-md"
+                        >
                             Email
                         </label>
                         <input
@@ -88,11 +109,16 @@ const Contact = () => {
                             onChange={handleChange}
                             autoComplete="off"
                         />
-                        {errors.email && <p className="text-red-500 mt-1">{errors.email}</p>}
+                        {errors.email && (
+                            <p className="text-red-500 mt-1">{errors.email}</p>
+                        )}
                     </div>
 
                     <div>
-                        <label htmlFor="subject" className="block mb-2 font-semibold text-white drop-shadow-md">
+                        <label
+                            htmlFor="subject"
+                            className="block mb-2 font-semibold text-white drop-shadow-md"
+                        >
                             Subject
                         </label>
                         <input
@@ -105,11 +131,16 @@ const Contact = () => {
                             onChange={handleChange}
                             autoComplete="off"
                         />
-                        {errors.subject && <p className="text-red-500 mt-1">{errors.subject}</p>}
+                        {errors.subject && (
+                            <p className="text-red-500 mt-1">{errors.subject}</p>
+                        )}
                     </div>
 
                     <div>
-                        <label htmlFor="message" className="block mb-2 font-semibold text-white drop-shadow-md">
+                        <label
+                            htmlFor="message"
+                            className="block mb-2 font-semibold text-white drop-shadow-md"
+                        >
                             Message
                         </label>
                         <textarea
@@ -121,7 +152,9 @@ const Contact = () => {
                             value={formData.message}
                             onChange={handleChange}
                         />
-                        {errors.message && <p className="text-red-500 mt-1">{errors.message}</p>}
+                        {errors.message && (
+                            <p className="text-red-500 mt-1">{errors.message}</p>
+                        )}
                     </div>
 
                     <button
@@ -145,7 +178,7 @@ const Contact = () => {
                 <p className="mb-4 drop-shadow-md">
                     <strong>Email:</strong>{" "}
                     <a
-                        href="mailto:your.email@example.com"
+                        href="mailto:raihanuddin.cse8.bu@gmail.com"
                         className="underline hover:text-cyan-300"
                     >
                         raihanuddin.cse8.bu@gmail.com
@@ -153,14 +186,14 @@ const Contact = () => {
                 </p>
                 <p className="mb-4 drop-shadow-md">
                     <strong>Phone:</strong>{" "}
-                    <a href="tel:+8801234567890" className="underline hover:text-cyan-300">
+                    <a href="tel:+8801608822317" className="underline hover:text-cyan-300">
                         +880 1608 822 317
                     </a>
                 </p>
                 <p className="mb-4 drop-shadow-md">
                     <strong>WhatsApp:</strong>{" "}
                     <a
-                        href="https://wa.me/8801234567890"
+                        href="https://wa.me/8801608822137"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline hover:text-cyan-300"
@@ -169,7 +202,7 @@ const Contact = () => {
                     </a>
                 </p>
             </div>
-        </section>
+        </motion.section>
     );
 };
 
