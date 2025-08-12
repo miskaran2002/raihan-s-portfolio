@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaUniversity, FaFileAlt, FaFootballBall, FaMusic } from "react-icons/fa";
+import { FaUniversity, FaFileAlt, FaFootballBall, FaMusic, FaGithub, FaLinkedin, FaTwitter, FaFacebook } from "react-icons/fa";
+import { FlagIcon } from "react-flag-kit";
 
 const containerVariants = {
     hidden: {},
@@ -31,17 +32,46 @@ const AboutMe = () => {
             className="min-h-screen px-6 md:px-20 py-20 relative z-10 text-white"
         >
             {/* Intro text full width */}
-            <div className="max-w-4xl mx-auto mb-12">
+            <div className="max-w-4xl mx-auto mb-12 text-center md:text-left">
                 <h2 className="text-5xl font-extrabold mb-6 text-cyan-400 select-none">
                     About Me
                 </h2>
 
-                <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
                     I am Md Raihan Uddin, a passionate Computer Science & Engineering student at
                     University of Barisal. With a strong background in programming and web
                     development, I enjoy building innovative digital solutions. Outside coding, I
                     love sports and music which keep me balanced and creative.
                 </p>
+
+                {/* Social Links */}
+                <div className="flex justify-center md:justify-start gap-6 mb-8">
+                    <a href="https://github.com/miskaran2002" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition">
+                        <FaGithub />
+                    </a>
+                    <a href="https://www.linkedin.com/in/md-raihan-uddin-cse8/" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition">
+                        <FaLinkedin />
+                    </a>
+                    <a href="https://x.com/MdRaihanUd57710" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition">
+                        <FaTwitter />
+                    </a>
+                    <a href="https://www.facebook.com/miskatujjaman.raihan" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition">
+                        <FaFacebook />
+                    </a>
+                </div>
+
+                {/* Languages */}
+                <div className="flex flex-wrap justify-center md:justify-start gap-6">
+                    <div className="flex items-center gap-2 bg-gray-900 bg-opacity-70 px-4 py-2 rounded-lg shadow">
+                        <span role="img" aria-label="Bangla" className="text-xl">🇧🇩</span> Bangla
+                    </div>
+                    <div className="flex items-center gap-2 bg-gray-900 bg-opacity-70 px-4 py-2 rounded-lg shadow">
+                        <span role="img" aria-label="English" className="text-xl">🇬🇧</span> English
+                    </div>
+                    <div className="flex items-center gap-2 bg-gray-900 bg-opacity-70 px-4 py-2 rounded-lg shadow">
+                        <span role="img" aria-label="Hindi" className="text-xl">🇮🇳</span> Hindi
+                    </div>
+                </div>
             </div>
 
             {/* Below intro - flex container with animated words and cards */}
@@ -102,7 +132,7 @@ const AboutMe = () => {
                                 <span className="text-cyan-400 font-semibold">
                                     [Your Research Paper Title]
                                 </span>
-                                . (Replace this with your actual paper title)
+                                .
                             </p>
                         </div>
                     </motion.div>
@@ -119,8 +149,7 @@ const AboutMe = () => {
                         <p className="text-gray-300 leading-relaxed">
                             I started my programming journey with C and C++ during my early university
                             days. Gradually, I fell in love with web development, mastering React,
-                            Node.js, and MongoDB to build full-stack applications. I enjoy solving
-                            real-world problems with code and continuously learning new technologies.
+                            Node.js, and MongoDB to build full-stack applications.
                         </p>
                     </motion.div>
 
@@ -136,7 +165,7 @@ const AboutMe = () => {
                             <h3 className="text-xl font-semibold mb-1">Hobbies & Interests</h3>
                             <p>
                                 I enjoy playing football, listening to music, and sometimes jamming with
-                                friends on guitar. These keep me creative and balanced.
+                                friends on guitar.
                             </p>
                         </div>
                     </motion.div>
