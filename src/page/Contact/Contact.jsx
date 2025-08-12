@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
     const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Contact = () => {
 
     const [errors, setErrors] = useState({});
     const [success, setSuccess] = useState(false);
+    const [sending, setSending] = useState(false); // Sending state
 
     const validate = () => {
         const errors = {};
@@ -34,11 +36,38 @@ const Contact = () => {
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length === 0) {
-            // Simulate sending message
-            console.log("Message sent:", formData);
-            setSuccess(true);
-            setFormData({ name: "", email: "", subject: "", message: "" });
             setErrors({});
+            setSending(true);
+
+            // EmailJS parameters
+            const serviceID = "service_gmysrk5";
+            const templateID = "template_sf9pyxi";
+            const publicKey = "Njha-oR6G_xlbujsD";
+
+            // template parameters sent to emailjs
+            const templateParams = {
+                from_name: formData.name,
+                from_email: formData.email,
+                subject: formData.subject,
+                message: formData.message,
+            };
+
+            emailjs
+                .send(serviceID, templateID, templateParams, publicKey)
+                .then(
+                    (response) => {
+                        console.log("SUCCESS!", response.status, response.text);
+                        setSuccess(true);
+                        setFormData({ name: "", email: "", subject: "", message: "" });
+                        setSending(false);
+                    },
+                    (err) => {
+                        console.error("FAILED...", err);
+                        setSuccess(false);
+                        setSending(false);
+                        alert("Failed to send message, please try again later.");
+                    }
+                );
         } else {
             setErrors(validationErrors);
             setSuccess(false);
@@ -86,10 +115,9 @@ const Contact = () => {
                             value={formData.name}
                             onChange={handleChange}
                             autoComplete="off"
+                            disabled={sending}
                         />
-                        {errors.name && (
-                            <p className="text-red-500 mt-1">{errors.name}</p>
-                        )}
+                        {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
                     </div>
 
                     <div>
@@ -108,6 +136,7 @@ const Contact = () => {
                             value={formData.email}
                             onChange={handleChange}
                             autoComplete="off"
+                            disabled={sending}
                         />
                         {errors.email && (
                             <p className="text-red-500 mt-1">{errors.email}</p>
@@ -130,6 +159,7 @@ const Contact = () => {
                             value={formData.subject}
                             onChange={handleChange}
                             autoComplete="off"
+                            disabled={sending}
                         />
                         {errors.subject && (
                             <p className="text-red-500 mt-1">{errors.subject}</p>
@@ -151,6 +181,7 @@ const Contact = () => {
                                 }`}
                             value={formData.message}
                             onChange={handleChange}
+                            disabled={sending}
                         />
                         {errors.message && (
                             <p className="text-red-500 mt-1">{errors.message}</p>
@@ -160,8 +191,9 @@ const Contact = () => {
                     <button
                         type="submit"
                         className="bg-cyan-600 hover:bg-cyan-700 transition px-6 py-3 rounded font-semibold w-full"
+                        disabled={sending}
                     >
-                        Send Message
+                        {sending ? "Sending..." : "Send Message"}
                     </button>
 
                     {success && (
