@@ -2,10 +2,11 @@ import {  createBrowserRouter,} from "react-router";
 import RootLayout from "../layouts/RootLayout";
 import Home from "../page/Home/Home/Home";
 import About from "../page/About/About";
-import Projects from "../page/About/Projects/Projects";
+
 import Contact from "../page/Contact/Contact";
 import Skills from "../page/About/Skills/Skills";
 import Education from "../page/Education/Education";
+import Projects from "../page/Projects/Projects";
  export const router = createBrowserRouter([
     {
         path: "/",
@@ -19,10 +20,7 @@ import Education from "../page/Education/Education";
               path:"/about",
               Component:About
             },
-            {
-                path: "/projects",
-                Component:Projects
-            },
+          
             {
                 path:"/contact",
                 Component:Contact
@@ -34,6 +32,11 @@ import Education from "../page/Education/Education";
             {
                 path:"/education",
                 Component:Education
+            },
+            {
+                path: "/projects",
+                Component:Projects
+
             }
 
             
