@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router"; 
+import { Link, NavLink } from "react-router";
 import {
     FaHome,
     FaUser,
@@ -7,15 +7,19 @@ import {
     FaEnvelope,
     FaBars,
     FaTimes,
+    FaGraduationCap,
+    FaCode
 } from "react-icons/fa";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [hoveredIndex, setHoveredIndex] = useState(null); 
+    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const navLinks = [
         { name: "Home", icon: <FaHome size={28} />, to: "/" },
         { name: "About", icon: <FaUser size={28} />, to: "/about" },
+        { name: "Skills", icon: <FaCode size={28} />, to: "/skills" },
+        { name: "Education", icon: <FaGraduationCap size={28} />, to: "/education" },
         { name: "Projects", icon: <FaProjectDiagram size={28} />, to: "/projects" },
         { name: "Contact", icon: <FaEnvelope size={28} />, to: "/contact" },
     ];
@@ -25,7 +29,7 @@ const Navbar = () => {
             {/* Top Header (Mobile & Tablet) */}
             <header className="fixed top-0 left-0 w-full bg-red-800 text-white z-50 flex justify-between items-center px-4 py-3 shadow-lg md:hidden">
                 <h1 className="font-bold text-lg tracking-wide">
-                    <Link to="/">Portfolio</Link>
+                    <Link to="/">Md Raihan Uddin</Link>
                 </h1>
                 <button
                     className="text-2xl"
@@ -59,6 +63,7 @@ const Navbar = () => {
                 </div>
             </div>
 
+            {/* Desktop Sidebar */}
             <nav className="hidden md:flex flex-col items-center justify-center fixed right-0 top-1/2 -translate-y-1/2 p-4 rounded-l-lg space-y-4 z-40">
                 {navLinks.map((link, index) => {
                     const isHovered = hoveredIndex === index;
@@ -89,9 +94,6 @@ const Navbar = () => {
                     );
                 })}
             </nav>
-
-
-
         </>
     );
 };
