@@ -129,13 +129,19 @@ const AboutMe = () => {
                             <h3 className="text-xl font-semibold mb-1">Research Paper</h3>
                             <p>
                                 Authored research paper on{" "}
-                                <span className="text-cyan-400 font-semibold">
-                                    [Your Research Paper Title]
-                                </span>
+                                <a
+                                    href="https://www.dropbox.com/scl/fi/fqlqoo5l4zjlzli5io287/THE_IMPACT_OF_ARTIFICIAL_INTELLIGENCE_ON_JOB_AUTOMATION.pdf?rlkey=4hwdl91oqseitohih7qgv888x&st=55nosv1h&dl=0"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-cyan-400 font-semibold underline"
+                                >
+                                    THE IMPACT OF ARTIFICIAL INTELLIGENCE ON JOB AUTOMATION
+                                </a>
                                 .
                             </p>
                         </div>
                     </motion.div>
+
 
                     {/* Programming Journey Card */}
                     <motion.div
