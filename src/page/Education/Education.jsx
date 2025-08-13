@@ -63,6 +63,10 @@ const Education = () => {
                             <p className="text-gray-300">
                                 <span className="font-semibold">Department:</span> Computer Science & Engineering
                             </p>
+                            <p className="text-gray-300">
+                                <span className="font-semibold">University Duration:</span> 2022 – Present
+                            </p>
+
                             <p className="text-cyan-400 font-semibold mt-1">CGPA: 3.43</p>
                         </div>
                     </motion.div>
