@@ -278,10 +278,10 @@ const AboutMe = () => {
             </div>
 
             {/* Below intro - flex container with animated words and cards */}
-            <div className="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto items-start md:items-stretch">
                 {/* Left side - animated words */}
                 <motion.div
-                    className="flex flex-col space-y-6 text-3xl md:text-5xl font-bold tracking-wide flex-1"
+                    className="flex flex-col justify-center space-y-6 text-3xl md:text-5xl font-bold tracking-wide flex-1"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
@@ -297,7 +297,7 @@ const AboutMe = () => {
 
                 {/* Right side - cards */}
                 <motion.div
-                    className="space-y-8 flex-1"
+                    className="space-y-8 flex-1 flex flex-col justify-between"
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
@@ -315,8 +315,7 @@ const AboutMe = () => {
                                 Currently studying Computer Science & Engineering at{" "}
                                 <span className="text-cyan-400 font-semibold">
                                     University of Barisal
-                                </span>
-                                .
+                                </span>.
                             </p>
                         </div>
                     </motion.div>
@@ -339,15 +338,14 @@ const AboutMe = () => {
                                     className="text-cyan-400 font-semibold underline"
                                 >
                                     THE IMPACT OF ARTIFICIAL INTELLIGENCE ON JOB AUTOMATION
-                                </a>
-                                .
+                                </a>.
                             </p>
                         </div>
                     </motion.div>
 
                     {/* Programming Journey Card */}
                     <motion.div
-                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 shadow-lg cursor-pointer"
+                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 shadow-lg cursor-pointer flex-1"
                         variants={boxVariants}
                         whileHover="hover"
                     >
@@ -379,6 +377,8 @@ const AboutMe = () => {
                     </motion.div>
                 </motion.div>
             </div>
+
+
         </section>
     );
 };
