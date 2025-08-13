@@ -67,7 +67,7 @@ const Homepage = () => {
                     animate={imageAnimation.animate}
                 >
                     <img
-                        src="https://i.ibb.co.com/7dGjpJHJ/photo-port.jpg"
+                        src="https://i.ibb.co.com/ynGsCC88/photo-2025-08-13-08-54-35.jpg"
                         alt="Profile"
                         className="rounded-full w-full h-full object-cover"
                     />
