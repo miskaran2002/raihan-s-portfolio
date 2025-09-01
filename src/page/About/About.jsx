@@ -72,7 +72,7 @@ const AboutMe = () => {
         addText("Mern Stack Developer", 20, "normal", 12);
         addText("Barishal, Bangladesh", 20, "normal", 12);
 
-        // Contact Info (Right Side)
+        // Contact Info
         doc.setFontSize(10);
         doc.setTextColor(0, 102, 204);
         doc.textWithLink(
@@ -315,67 +315,32 @@ const AboutMe = () => {
                 </div>
             </div>
 
-            {/* Animated Words & Cards */}
-            <div className="flex flex-col md:flex-row gap-12 max-w-6xl mx-auto items-start md:items-stretch">
-                {/* Left Side Words */}
-                <motion.div
-                    className="flex flex-col justify-center space-y-6 text-3xl md:text-5xl font-bold tracking-wide flex-1"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {[
-                        "Programming Journey",
-                        "Passion for Development",
-                        "Creative Mind",
-                        "Lifelong Learner",
-                        "Football Enthusiast",
-                        "Music Lover",
-                        "Problem Solver",
-                    ].map((word) => (
-                        <motion.div key={word} variants={boxVariants}>
-                            {word}
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-                {/* Right Side Cards */}
-                <motion.div
-                    className="space-y-8 flex-1 flex flex-col justify-between"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {/* University */}
-                    <motion.div
-                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 flex items-center gap-4 shadow-lg cursor-pointer"
-                        variants={boxVariants}
-                        whileHover="hover"
-                    >
-                        <FaUniversity className="text-cyan-400 text-4xl" />
-                        <div>
-                            <h3 className="text-xl font-semibold mb-1">University</h3>
-                            <p>
-                                Currently studying Computer Science & Engineering at{" "}
-                                <span className="text-cyan-400 font-semibold">
-                                    University of Barisal
-                                </span>
-                                .
-                            </p>
-                        </div>
-                    </motion.div>
-
-                    {/* Research Paper */}
-                    <motion.div
-                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 flex items-center gap-4 shadow-lg cursor-pointer"
-                        variants={boxVariants}
-                        whileHover="hover"
-                    >
-                        <FaFileAlt className="text-cyan-400 text-4xl" />
-                        <div>
-                            <h3 className="text-xl font-semibold mb-1">Research Paper</h3>
-                            <p>
-                                Authored research paper on{" "}
+            {/* Paragraph-style Cards (stacked) */}
+            <motion.div
+                className="flex flex-col gap-6 max-w-4xl mx-auto text-gray-300"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                {[
+                    {
+                        title: "University",
+                        icon: <FaUniversity className="text-cyan-400 text-3xl" />,
+                        desc: `I am currently pursuing my Bachelor of Science in Computer Science & Engineering at the University of Barisal.  
+      My academic journey has allowed me to develop a strong foundation in programming, algorithms, and data structures.  
+      I actively participate in workshops and seminars to stay updated with the latest technologies.  
+      I enjoy collaborative projects and coding competitions organized by the university.  
+      Courses like Web Development, Database Management, and Software Engineering have strengthened my technical skills.  
+      I am also involved in extracurricular clubs, particularly those related to technology and innovation.  
+      The university environment encourages problem-solving, creativity, and continuous learning.  
+      I aim to graduate with a strong CGPA and practical experience that will help in my professional career.`,
+                    },
+                    {
+                        title: "Research Paper",
+                        icon: <FaFileAlt className="text-cyan-400 text-3xl" />,
+                        desc: (
+                            <>
+                                I authored a research paper titled{" "}
                                 <a
                                     href="https://www.dropbox.com/scl/fi/fqlqoo5l4zjlzli5io287/THE_IMPACT_OF_ARTIFICIAL_INTELLIGENCE_ON_JOB_AUTOMATION.pdf?rlkey=4hwdl91oqseitohih7qgv888x&st=55nosv1h&dl=0"
                                     target="_blank"
@@ -385,47 +350,65 @@ const AboutMe = () => {
                                     THE IMPACT OF ARTIFICIAL INTELLIGENCE ON JOB AUTOMATION
                                 </a>
                                 .
-                            </p>
-                        </div>
-                    </motion.div>
-
-                    {/* Programming Journey */}
+                                The research explores how AI is transforming industries and automating repetitive tasks.
+                                I conducted an extensive review of existing literature and current AI applications.
+                                The paper analyzes both the positive and negative impacts on employment trends.
+                                I collected case studies and statistical data to support my findings.
+                                My work emphasizes the need for upskilling and human-AI collaboration.
+                                The paper was presented in a university seminar and received positive feedback from professors.
+                                It strengthened my research, analytical, and technical writing skills.
+                                This experience motivated me to explore AI integration in practical web applications.`,
+                            </>
+                        ),
+                    },
+                    {
+                        title: "Programming Journey",
+                        icon: null,
+                        desc: `I began my programming journey learning C and C++ during my early university days.  
+      These languages helped me understand core programming concepts like loops, conditions, and data structures.  
+      Gradually, I developed an interest in web development and modern frameworks.  
+      I learned HTML, CSS, and JavaScript to build interactive websites.  
+      My curiosity led me to React.js, Node.js, and MongoDB for full-stack development.  
+      I worked on personal projects to apply my knowledge and improve coding skills.  
+      Online tutorials, coding communities, and challenges played a key role in my growth.  
+      Today, I enjoy building real-world applications with responsive UI and secure backend.  
+      I continuously experiment with new technologies and follow best practices in coding.`,
+                    },
+                    {
+                        title: "Hobbies & Interests",
+                        icon: (
+                            <>
+                                <FaFootballBall className="text-cyan-400 text-3xl" />
+                                <FaMusic className="text-cyan-400 text-3xl" />
+                            </>
+                        ),
+                        desc: `I am passionate about football and enjoy playing regularly with friends and university teams.  
+      Sports help me stay active, focused, and develop teamwork skills.  
+      I also love music, especially playing guitar and discovering new genres.  
+      Music provides a creative outlet and helps me relax after coding sessions.  
+      Reading tech blogs, books, and articles is another hobby that keeps me informed.  
+      I enjoy problem-solving challenges like puzzles and programming contests.  
+      Traveling and exploring new cultures inspire me and broaden my perspective.  
+      These activities balance my professional and personal life, keeping me motivated and creative.`,
+                    },
+                ].map((item) => (
                     <motion.div
-                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 shadow-lg cursor-pointer flex-1"
+                        key={item.title}
+                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 shadow-lg flex gap-4"
                         variants={boxVariants}
                         whileHover="hover"
                     >
-                        <h3 className="text-xl font-semibold mb-3 text-cyan-400">
-                            Programming Journey
-                        </h3>
-                        <p className="text-gray-300 leading-relaxed">
-                            I started my programming journey with C and C++ during my early
-                            university days. Gradually, I fell in love with web development,
-                            mastering React, Node.js, and MongoDB to build full-stack
-                            applications.
-                        </p>
-                    </motion.div>
-
-                    {/* Hobbies */}
-                    <motion.div
-                        className="bg-gray-900 bg-opacity-80 rounded-lg p-6 flex items-center gap-4 shadow-lg cursor-pointer"
-                        variants={boxVariants}
-                        whileHover="hover"
-                    >
-                        <FaFootballBall className="text-cyan-400 text-4xl" />
-                        <FaMusic className="text-cyan-400 text-4xl" />
+                        {item.icon && <div className="flex gap-2">{item.icon}</div>}
                         <div>
-                            <h3 className="text-xl font-semibold mb-1">
-                                Hobbies & Interests
+                            <h3 className="text-xl font-semibold mb-1 text-cyan-400">
+                                {item.title}
                             </h3>
-                            <p>
-                                I enjoy playing football, listening to music, and sometimes
-                                jamming with friends on guitar.
-                            </p>
+                            <p>{item.desc}</p>
                         </div>
                     </motion.div>
-                </motion.div>
-            </div>
+                ))}
+            </motion.div>
+
         </section>
     );
 };
