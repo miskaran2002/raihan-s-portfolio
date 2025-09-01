@@ -4,18 +4,42 @@ import { useNavigate } from "react-router";
 import { FaPlus, FaExternalLinkAlt, FaGithub, FaReact, FaNodeJs, FaDatabase, FaCss3Alt, FaJs, FaVuejs } from "react-icons/fa";
 import { SiFirebase, SiTailwindcss, SiMongodb, SiExpress, SiMysql } from "react-icons/si";
 
+// Variants for container stagger
 const containerVariants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.3 } },
 };
 
-const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+// Card slide from left/right when rendered
+const slideVariants = {
+    hidden: (index) => ({
+        x: index % 2 === 0 ? -100 : 100,
+        opacity: 0,
+    }),
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: { duration: 0.8, ease: "easeOut" },
+    },
     hover: { scale: 1.02, transition: { duration: 0.3, ease: "easeInOut" } },
 };
 
-// Helper to map tech keywords to icons
+// Floating up-down motion for images
+const floatingVariants = {
+    animate: {
+        y: [0, -10, 0],
+        transition: {
+            y: {
+                repeat: Infinity,
+                repeatType: "loop",
+                duration: 4,
+                ease: "easeInOut",
+            },
+        },
+    },
+};
+
+// Map tech keywords to icons
 const techIconMap = {
     react: <FaReact className="text-cyan-400" />,
     firebase: <SiFirebase className="text-yellow-400" />,
@@ -29,6 +53,7 @@ const techIconMap = {
     vue: <FaVuejs className="text-green-400" />,
 };
 
+// Render tech pills
 function renderTechPills(techStackStr) {
     const techs = techStackStr
         .toLowerCase()
@@ -93,12 +118,11 @@ const Projects = () => {
             screenshot: "https://i.ibb.co.com/B5tKvwRD/Screenshot-2025-09-01-112704.png",
             techStack: "next.js 15, tailwindcss, daisyUI, mongodb, node.js",
             description: "Stockly is a modern e-commerce platform built with Next.js 15 that ensures blazing fast performance, SEO optimization, and smooth user experience. The app allows users to browse products, manage carts, and checkout with ease. With TailwindCSS and DaisyUI, the UI is sleek, responsive, and highly customizable. Advanced features like dynamic product filtering, secure authentication, and order tracking provide a seamless shopping journey. The platform is designed to scale for small to large businesses, offering flexibility and performance at every step.",
-            liveLink: " https://next-stockly-app.vercel.app/",
-            githubClient: " https://github.com/miskaran2002/next-stockly-app",
+            liveLink: "https://next-stockly-app.vercel.app/",
+            githubClient: "https://github.com/miskaran2002/next-stockly-app",
             challenges: "During Stockly's development, one major challenge was implementing real-time inventory management that updates instantly across the platform. Ensuring secure authentication, especially for both customers and admins, required careful role-based access control. Handling product images efficiently with Next.js optimization tools was another tricky part. Creating a scalable database schema for products, users, orders, and payments took significant planning. SEO optimization and improving page speed for large product catalogs also demanded extra effort. Finally, integrating third-party payment gateways while ensuring security and smooth UX was one of the biggest hurdles.",
             improvements: "For future improvements, I plan to add multi-language and multi-currency support to make Stockly more global. Integrating AI-based product recommendations and personalized shopping experiences will boost user engagement. I also aim to enhance the admin dashboard with analytics and automated inventory alerts. Expanding features like wishlist, product reviews, and loyalty rewards will make the platform more user-friendly. Furthermore, I plan to add PWA (Progressive Web App) support so users can shop offline. Lastly, optimizing backend performance for handling thousands of products and integrating with mobile apps will ensure Stockly is ready to scale into a full-featured e-commerce ecosystem."
         }
-
     ];
 
     const openModal = (project) => {
@@ -125,17 +149,22 @@ const Projects = () => {
                     <motion.div
                         key={project.id}
                         className="relative rounded-lg shadow-lg cursor-pointer overflow-hidden"
-                        variants={cardVariants}
+                        custom={index}
+                        variants={slideVariants}
+                        initial="hidden"
+                        animate="visible"
                         whileHover="hover"
                         onClick={() => openModal(project)}
                         onMouseEnter={() => setHoveredIndex(index)}
                         onMouseLeave={() => setHoveredIndex(null)}
                     >
-                        <img
+                        <motion.img
                             src={project.screenshot}
                             alt={`${project.name} Screenshot`}
                             className="w-full max-h-[600px] object-contain bg-black"
                             style={{ margin: "0 auto" }}
+                            variants={floatingVariants}
+                            animate="animate"
                         />
                         <div
                             className={`absolute inset-0 bg-cyan-600 bg-opacity-60 flex flex-col items-center justify-center gap-4 transition-opacity duration-300 ${hoveredIndex === index ? "opacity-100" : "opacity-0"
@@ -169,7 +198,6 @@ const Projects = () => {
                             &times;
                         </button>
 
-                        {/* Screenshot */}
                         <img
                             src={activeProject.screenshot}
                             alt={`${activeProject.name} Screenshot`}
@@ -184,7 +212,6 @@ const Projects = () => {
                         <div className="flex flex-wrap gap-3 mb-6">{renderTechPills(activeProject.techStack)}</div>
 
                         <div className="flex gap-4 mb-6">
-                            {/* Live Link Button */}
                             <a
                                 href={activeProject.liveLink}
                                 target="_blank"
@@ -194,7 +221,6 @@ const Projects = () => {
                                 Live Demo <FaExternalLinkAlt />
                             </a>
 
-                            {/* GitHub Client Button */}
                             <a
                                 href={activeProject.githubClient}
                                 target="_blank"
@@ -205,7 +231,6 @@ const Projects = () => {
                             </a>
                         </div>
 
-                        {/* Challenges and Improvements */}
                         <p className="mb-4">
                             <strong>Challenges: </strong> {activeProject.challenges}
                         </p>
