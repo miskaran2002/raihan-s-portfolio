@@ -31,6 +31,19 @@ const Education = () => {
                 <h2 className="text-5xl font-extrabold mb-16 text-cyan-400 text-center select-none">
                     My Education
                 </h2>
+                {/* Intro Paragraph */}
+                <motion.p
+                    className="text-center text-lg text-white max-w-3xl mx-auto mb-12"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    My education journey has been rich and transformative, filled with
+                    knowledge, curiosity, and growth. From mastering core subjects to
+                    exploring advanced technologies, I have always pushed myself to go
+                    beyond limits. Every step has shaped me into a lifelong learner with
+                    strong problem-solving and creative thinking skills.
+                </motion.p>
 
                 <motion.div
                     className="relative"
