@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router"; // note: "react-router-dom" is standard
+import { NavLink } from "react-router"; // fixed import
 
 const imageAnimation = {
     animate: {
@@ -22,6 +22,7 @@ const textAnimation = {
         transition: { duration: 1, delay: 0.5, ease: "easeOut" },
     },
 };
+
 const MoreAboutButton = () => {
     const [isClicked, setIsClicked] = useState(false);
 
@@ -52,24 +53,42 @@ const MoreAboutButton = () => {
     );
 };
 
-
-
 const Homepage = () => {
+    const images = [
+        "https://i.ibb.co/ynGsCC88/photo-2025-08-13-08-54-35.jpg",
+        "https://i.ibb.co.com/Q0vfY6L/linkedin-photo.jpg",
+        "https://i.ibb.co.com/7d7ffqC2/photo-port.jpg"
+    ];
+
+    const [current, setCurrent] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrent(prev => (prev + 1) % images.length);
+        }, 3000); // change every 3 seconds
+        return () => clearInterval(interval);
+    }, [images.length]);
+
     return (
         <section
             id="home"
             className="relative min-h-screen flex items-center justify-center text-white px-6 md:px-20"
         >
             <div className="max-w-6xl w-full flex flex-col md:flex-row items-center gap-12 md:gap-24 relative z-10">
-                {/* Left side - photo with smooth up-down animation */}
+                {/* Left side - image carousel with smooth up-down animation */}
                 <motion.div
-                    className="rounded-full p-1 shadow-lg flex-shrink-0 w-48 h-48 md:w-64 md:h-64 bg-gray-300"
+                    className="rounded-full p-1 shadow-lg flex-shrink-0 w-48 h-48 md:w-64 md:h-64 bg-gray-300 overflow-hidden"
                     animate={imageAnimation.animate}
                 >
-                    <img
-                        src="https://i.ibb.co.com/ynGsCC88/photo-2025-08-13-08-54-35.jpg"
+                    <motion.img
+                        key={images[current]}
+                        src={images[current]}
                         alt="Profile"
                         className="rounded-full w-full h-full object-cover"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8 }}
                     />
                 </motion.div>
 
@@ -81,7 +100,7 @@ const Homepage = () => {
                     variants={textAnimation}
                 >
                     <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">
-                        --Greetings and welcome.<br></br> I am{" "}
+                        --Greetings and welcome.<br /> I am{" "}
                         <span className="text-cyan-400">Md Raihan Uddin</span>
                     </h1>
 
