@@ -1,192 +1,317 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-    FaUniversity,
+    FaGraduationCap,
+    FaLaptopCode,
     FaFileAlt,
     FaFootballBall,
     FaMusic,
-    FaGithub,
-    FaLinkedin,
-    FaTwitter,
-    FaFacebook,
-    FaDownload,
-    FaLaptopCode,
+    FaBriefcase,
+    FaCogs,
+    FaCheckCircle,
+    FaCode,
+    FaServer,
+    FaDatabase
 } from "react-icons/fa";
 
-// Container for staggered children
+// Stagger animation container
 const containerVariants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.3 } },
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15
+        }
+    }
 };
 
-// Card variants with smooth slide in from left/right
-const cardVariants = (direction = "left") => ({
-    hidden: { opacity: 0, x: direction === "left" ? -80 : 80 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.8, ease: "easeOut" } },
-    hover: { scale: 1.03, transition: { duration: 0.3, ease: "easeInOut" } },
-});
-
-// Intro section fade in
-const introVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+// Card animation
+const cardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: "easeOut" }
+    }
 };
-
 
 const AboutMe = () => {
+    // 1. Core Cards (Education, Journey, Research, Hobbies)
     const cards = [
         {
-            title: "University",
-            icon: <FaUniversity className="text-cyan-400 text-3xl" />,
-            desc: `I am currently pursuing my Bachelor of Science in Computer Science & Engineering at the University of Barisal.  
-    My academic journey has allowed me to develop a strong foundation in programming, algorithms, and data structures.  
-    I actively participate in workshops and seminars to stay updated with the latest technologies.  
-    I enjoy collaborative projects and coding competitions organized by the university.  
-    Courses like Web Development, Database Management, and Software Engineering have strengthened my technical skills.  
-    I am also involved in extracurricular clubs, particularly those related to technology and innovation.  
-    The university environment encourages problem-solving, creativity, and continuous learning.  
-    I aim to graduate with a strong CGPA and practical experience that will help in my professional career.`,
-            direction: "left",
-        },
-        {
-            title: "Research Paper",
-            icon: <FaFileAlt className="text-cyan-400 text-3xl" />,
+            title: "Educational Qualification",
+            badge: "CGPA: 3.57 / 4.00",
+            icon: <FaGraduationCap className="text-cyan-400 text-3xl" />,
             desc: (
-                <>
-                    I authored a research paper titled{" "}
-                    <a
-                        href="https://www.dropbox.com/scl/fi/fqlqoo5l4zjlzli5io287/THE_IMPACT_OF_ARTIFICIAL_INTELLIGENCE_ON_JOB_AUTOMATION.pdf?rlkey=4hwdl91oqseitohih7qgv888x&st=55nosv1h&dl=0"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-400 font-semibold underline"
-                    >
-                        THE IMPACT OF ARTIFICIAL INTELLIGENCE ON JOB AUTOMATION
-                    </a>
-                    .
-                    The research explores how AI is transforming industries and automating repetitive tasks.
-                    I conducted an extensive review of existing literature and current AI applications.
-                    The paper analyzes both the positive and negative impacts on employment trends.
-                    I collected case studies and statistical data to support my findings.
-                    My work emphasizes the need for upskilling and human-AI collaboration.
-                    The paper was presented in a university seminar and received positive feedback from professors.
-                    It strengthened my research, analytical, and technical writing skills.
-                    This experience motivated me to explore AI integration in practical web applications.
-                </>
-            ),
+                <div className="space-y-2 text-gray-300 text-sm md:text-base">
+                    <p>
+                        Currently pursuing Bachelor of Science in <span className="text-cyan-300 font-semibold">Computer Science & Engineering</span> at <span className="text-white font-semibold">University of Barishal</span>.
+                    </p>
+                    <p>
+                        Achieved academic GPA of <span className="text-cyan-400 font-bold">3.57 out of 4.00</span> in 3rd Year 2nd Semester, securing <span className="text-green-400 font-bold">A+</span> in <i>Simulation & Modelling</i>.
+                    </p>
+                    <p className="text-xs text-gray-400">
+                        Coursework: Web Engineering, Database Systems, Compiler Design, Automata Theory, Operating Systems.
+                    </p>
+                </div>
+            )
         },
         {
             title: "Programming Journey",
+            badge: "Full-Stack Web",
             icon: <FaLaptopCode className="text-cyan-400 text-3xl" />,
-            desc: `I began my programming journey learning C and C++ during my early university days.  
-    These languages helped me understand core programming concepts like loops, conditions, and data structures.  
-    Gradually, I developed an interest in web development and modern frameworks.  
-    I learned HTML, CSS, and JavaScript to build interactive websites.  
-    My curiosity led me to React.js, Node.js, and MongoDB for full-stack development.  
-    I worked on personal projects to apply my knowledge and improve coding skills.  
-    Online tutorials, coding communities, and challenges played a key role in my growth.  
-    Today, I enjoy building real-world applications with responsive UI and secure backend.  
-    I continuously experiment with new technologies and follow best practices in coding.`,
-            direction: "left",
+            desc: (
+                <div className="space-y-2 text-gray-300 text-sm md:text-base">
+                    <p>
+                        Started my coding journey with C and C++, building strong fundamentals in data structures, algorithms, and logical problem solving.
+                    </p>
+                    <p>
+                        Gradually transitioned into full-stack web development using <span className="text-cyan-300 font-medium">React, TypeScript, Node.js, Express, PostgreSQL, Prisma, & MongoDB</span> to build modern digital products.
+                    </p>
+                </div>
+            )
         },
         {
-            title: "Hobbies & Interests",
-            icon: (
-                <>
-                    <FaFootballBall className="text-cyan-400 text-3xl" />
-                    <FaMusic className="text-cyan-400 text-3xl" />
-                </>
-            ),
-            desc: `I am passionate about football and enjoy playing regularly with friends and university teams.  
-    Sports help me stay active, focused, and develop teamwork skills.  
-    I also love music, especially playing guitar and discovering new genres.  
-    Music provides a creative outlet and helps me relax after coding sessions.  
-    Reading tech blogs, books, and articles is another hobby that keeps me informed.  
-    I enjoy problem-solving challenges like puzzles and programming contests.  
-    Traveling and exploring new cultures inspire me and broaden my perspective.  
-    These activities balance my professional and personal life, keeping me motivated and creative.`,
-            direction: "right",
+            title: "Research Work",
+            badge: "Publication",
+            icon: <FaFileAlt className="text-cyan-400 text-3xl" />,
+            desc: (
+                <div className="space-y-2 text-gray-300 text-sm md:text-base">
+                    <p>
+                        Authored a research paper titled{" "}
+                        <a
+                            href="https://www.dropbox.com/scl/fi/fqlqoo5l4zjlzli5io287/THE_IMPACT_OF_ARTIFICIAL_INTELLIGENCE_ON_JOB_AUTOMATION.pdf?rlkey=4hwdl91oqseitohih7qgv888x&st=55nosv1h&dl=0"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-cyan-400 font-semibold underline hover:text-cyan-300 transition-colors"
+                        >
+                            THE IMPACT OF AI ON JOB AUTOMATION
+                        </a>.
+                    </p>
+                    <p>
+                        Analyzed industry transformation and human-AI collaboration trends. Presented in a university seminar with positive evaluation from faculty.
+                    </p>
+                </div>
+            )
         },
+        {
+            title: "Hobbies & Personality",
+            badge: "Life Beyond Code",
+            icon: (
+                <div className="flex gap-2 text-cyan-400 text-2xl">
+                    <FaFootballBall />
+                    <FaMusic />
+                </div>
+            ),
+            desc: (
+                <div className="space-y-2 text-gray-300 text-sm md:text-base">
+                    <p>
+                        I play football regularly with my university team to keep myself active and maintain strong team-player mindset.
+                    </p>
+                    <p>
+                        Also enjoy playing guitar, listening to diverse music, and exploring emerging technological advancements to stay creative.
+                    </p>
+                </div>
+            )
+        }
+    ];
+
+    // 2. Professional Experience
+    const experiences = [
+        {
+            role: "Shadow Intern",
+            organization: "Endgame Shadow Internship Program",
+            period: "Selected in 2025",
+            details: "Collaborated in large-scale software project workflows, agile methodologies, and team development cycles."
+        },
+        {
+            role: "Software Trainee",
+            organization: "Next Level AI-Driven Software Engineering Bootcamp",
+            period: "2026 - Present",
+            details: "Mastering advanced full-stack development, modern AI tools integration, automated testing, and cloud deployment pipelines."
+        },
+        {
+            role: "Career Project Participant",
+            organization: "SCIC-11 Career Development Project",
+            period: "2025",
+            details: "Completed intensive practical web development tasks, coding challenges, and professional project presentations."
+        }
+    ];
+
+    // 3. Services / Capabilities
+    const services = [
+        {
+            title: "Frontend Development",
+            icon: <FaCode className="text-cyan-400 text-2xl" />,
+            desc: "Building dynamic, pixel-perfect, and ultra-responsive user interfaces using React, Tailwind CSS, and Framer Motion."
+        },
+        {
+            title: "Backend & API Design",
+            icon: <FaServer className="text-cyan-400 text-2xl" />,
+            desc: "Designing secure, scalable RESTful APIs with Node.js, Express.js, JWT Authentication, and Stripe payment gateways."
+        },
+        {
+            title: "Database Management",
+            icon: <FaDatabase className="text-cyan-400 text-2xl" />,
+            desc: "Modeling relational and non-relational database schemas using PostgreSQL, Prisma ORM, and MongoDB Atlas."
+        }
     ];
 
     return (
-        <section id="about" className="min-h-screen px-6 md:px-20 py-20 relative z-10 text-white">
-            {/* Intro */}
-            <motion.div
-                className="max-w-4xl mx-auto mb-12 text-center md:text-left"
-                variants={introVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-            >
-                <h2 className="text-5xl font-extrabold mb-6 text-cyan-400 select-none">
-                    About Me
-                </h2>
-                <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8">
-                    I am Md Raihan Uddin, a passionate Computer Science & Engineering student at University of Barisal. With a strong background in programming and web development, I enjoy building innovative digital solutions. Outside coding, I love sports and music which keep me balanced and creative.
-                </p>
-
-                {/* Social Links */}
-                <div className="flex justify-center md:justify-start gap-6 mb-8">
-                    <a href="https://github.com/miskaran2002" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition"><FaGithub /></a>
-                    <a href="https://www.linkedin.com/in/md-raihan-uddin-cse8/" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition"><FaLinkedin /></a>
-                    <a href="https://x.com/MdRaihanUd57710" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition"><FaTwitter /></a>
-                    <a href="https://www.facebook.com/miskatujjaman.raihan" target="_blank" rel="noopener noreferrer" className="text-2xl text-white hover:text-cyan-400 transition"><FaFacebook /></a>
-                </div>
-
-                {/* Languages */}
-                <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-8">
-                    {[
-                        { flag: "🇧🇩", label: "Bangla" },
-                        { flag: "🇬🇧", label: "English" },
-                        { flag: "🇮🇳", label: "Hindi" },
-                    ].map((lang) => (
-                        <div
-                            key={lang.label}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-shadow shadow-md"
-                        >
-                            <span role="img" aria-label={lang.label} className="text-xl">
-                                {lang.flag}
-                            </span>
-                            <span className="text-white font-medium">{lang.label}</span>
-                        </div>
-                    ))}
-                </div>
-
-
-                {/* Download Resume */}
-                <div className="flex justify-center md:justify-start mb-12">
-                    <a href="https://drive.google.com/uc?export=download&id=1YuQl_pWqQAgotpM3h7f-FT8XXH-UTtEa" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 bg-cyan-600 hover:bg-cyan-700 transition px-6 py-3 rounded font-semibold shadow-lg" download>
-                        <FaDownload className="text-white text-lg" />
-                        <span className="text-white">Download Resume</span>
-                    </a>
-                </div>
-            </motion.div>
-
-            {/* Cards */}
-            <motion.div
-                className="flex flex-col gap-6 max-w-4xl mx-auto text-gray-300"
-            >
-                {cards.map((card, index) => (
+        <section id="about" className="min-h-screen px-4 sm:px-6 md:px-16 lg:px-24 py-16 md:py-24 relative z-10 text-white">
+            <div className="max-w-6xl mx-auto space-y-16">
+                
+                {/* Header & Main Intro with Image */}
+                <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+                    
+                    {/* Left: Styled Image Frame */}
                     <motion.div
-                        key={card.title}
-                        className="rounded-lg p-6 shadow-lg flex gap-4 bg-gray-900 bg-opacity-80"
-                        initial={{ opacity: 0, x: card.direction === "left" ? -80 : 80 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
-                        transition={{ duration: 0.8, ease: "easeOut", delay: index * 0.2 }}
-                        whileHover={{ scale: 1.03, transition: { duration: 0.3 } }}
+                        className="w-full lg:w-5/12 flex justify-center"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8 }}
                     >
-                        {card.icon && <div className="flex gap-2">{card.icon}</div>}
-                        <div>
-                            <h3 className="text-xl font-semibold mb-1 text-cyan-400">{card.title}</h3>
-                            <p>{card.desc}</p>
+                        <div className="relative group max-w-sm w-full">
+                            {/* Cyan Glow effect behind image */}
+                            <div className="absolute -inset-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur opacity-30 group-hover:opacity-70 transition duration-500"></div>
+                            
+                            {/* Image Container */}
+                            <div className="relative rounded-2xl overflow-hidden border border-cyan-500/40 bg-gray-900 shadow-2xl">
+                                <img
+                                    src="https://i.ibb.co.com/X1pRHbn/about-page.jpg"
+                                    alt="Md Raihan Uddin"
+                                    className="w-full h-80 sm:h-96 lg:h-[420px] object-cover object-center transform group-hover:scale-105 transition duration-500"
+                                />
+                            </div>
                         </div>
                     </motion.div>
-                ))}
-            </motion.div>
 
+                    {/* Right: Intro Text Content */}
+                    <motion.div
+                        className="w-full lg:w-7/12 text-center lg:text-left"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-4xl sm:text-5xl font-extrabold mb-4 text-cyan-400 tracking-wide">
+                            About Me
+                        </h2>
+                        <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-6">
+                            I am <span className="text-white font-semibold">Md Raihan Uddin</span>, a passionate Full Stack Developer and Computer Science & Engineering student at the University of Barishal. I focus on bridging complex backend logic with beautiful, responsive user interfaces.
+                        </p>
 
+                        {/* Quick Badges */}
+                        <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
+                            <span className="px-3 py-1 rounded-full text-xs sm:text-sm bg-cyan-950/80 text-cyan-300 border border-cyan-800/50">
+                                💻 Full Stack Web Developer
+                            </span>
+                            <span className="px-3 py-1 rounded-full text-xs sm:text-sm bg-cyan-950/80 text-cyan-300 border border-cyan-800/50">
+                                🎓 University of Barishal (CSE)
+                            </span>
+                        </div>
 
+                        {/* Languages */}
+                        <div className="flex items-center justify-center lg:justify-start gap-2 text-xs sm:text-sm text-gray-300">
+                            <span className="text-gray-400 font-medium">Languages:</span>
+                            <span className="px-2.5 py-1 rounded bg-gray-800/80 border border-gray-700/60">🇧🇩 Bangla</span>
+                            <span className="px-2.5 py-1 rounded bg-gray-800/80 border border-gray-700/60">🇬🇧 English</span>
+                            <span className="px-2.5 py-1 rounded bg-gray-800/80 border border-gray-700/60">🇮🇳 Hindi</span>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* 1. Core Background Cards Grid */}
+                <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.15 }}
+                >
+                    {cards.map((card, idx) => (
+                        <motion.div
+                            key={idx}
+                            variants={cardVariants}
+                            whileHover={{ y: -5 }}
+                            className="bg-gray-900/80 backdrop-blur-md rounded-xl p-6 border border-gray-800 hover:border-cyan-500/40 transition-all duration-300 shadow-xl flex flex-col justify-between"
+                        >
+                            <div>
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="p-3 bg-gray-800/80 rounded-lg border border-gray-700/50">
+                                        {card.icon}
+                                    </div>
+                                    <span className="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-900/40 text-cyan-300 border border-cyan-700/50">
+                                        {card.badge}
+                                    </span>
+                                </div>
+                                <h3 className="text-xl sm:text-2xl font-bold mb-3 text-cyan-400">
+                                    {card.title}
+                                </h3>
+                                <div>{card.desc}</div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </motion.div>
+
+                {/* 2. Professional Experience */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="flex items-center gap-3 mb-8">
+                        <FaBriefcase className="text-cyan-400 text-2xl sm:text-3xl" />
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                            Experience & Professional Training
+                        </h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {experiences.map((exp, i) => (
+                            <div key={i} className="bg-gray-900/60 rounded-xl p-6 border border-gray-800/80 hover:border-cyan-500/30 transition">
+                                <span className="text-xs font-semibold text-cyan-400 bg-cyan-950/60 px-2.5 py-1 rounded border border-cyan-800/40">
+                                    {exp.period}
+                                </span>
+                                <h4 className="text-lg font-bold text-white mt-3">{exp.role}</h4>
+                                <p className="text-cyan-300 text-sm font-medium mb-2">{exp.organization}</p>
+                                <p className="text-gray-400 text-sm leading-relaxed">{exp.details}</p>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* 3. What I Do / Services */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <div className="flex items-center gap-3 mb-8">
+                        <FaCogs className="text-cyan-400 text-2xl sm:text-3xl" />
+                        <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                            What I Bring To The Table
+                        </h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {services.map((srv, i) => (
+                            <div key={i} className="bg-gray-900/60 rounded-xl p-6 border border-gray-800/80 hover:border-cyan-500/30 transition flex flex-col justify-between">
+                                <div>
+                                    <div className="mb-4">{srv.icon}</div>
+                                    <h4 className="text-xl font-bold text-white mb-2">{srv.title}</h4>
+                                    <p className="text-gray-400 text-sm leading-relaxed">{srv.desc}</p>
+                                </div>
+                                <div className="mt-4 flex items-center gap-1.5 text-xs text-cyan-400 font-medium">
+                                    <FaCheckCircle /> Quality Guaranteed
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+            </div>
         </section>
     );
 };
