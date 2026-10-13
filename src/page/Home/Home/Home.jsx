@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { NavLink } from "react-router"; // fixed import
+import { NavLink } from "react-router";
+import { FaGithub, FaLinkedin, FaFacebook, FaTwitter, FaDownload } from "react-icons/fa";
 
 const imageAnimation = {
     animate: {
@@ -57,7 +58,8 @@ const Homepage = () => {
     const images = [
         "https://i.ibb.co/ynGsCC88/photo-2025-08-13-08-54-35.jpg",
         "https://i.ibb.co.com/Q0vfY6L/linkedin-photo.jpg",
-        "https://i.ibb.co.com/7d7ffqC2/photo-port.jpg"
+        "https://i.ibb.co.com/7d7ffqC2/photo-port.jpg",
+        "https://i.ibb.co.com/HDSvn6p1/last-image.jpg"
     ];
 
     const [current, setCurrent] = useState(0);
@@ -99,10 +101,15 @@ const Homepage = () => {
                     animate="visible"
                     variants={textAnimation}
                 >
-                    <h1 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+                    <h1 className="text-3xl md:text-5xl font-bold mb-2 text-white">
                         --Greetings and welcome.<br /> I am{" "}
                         <span className="text-cyan-400">Md Raihan Uddin</span>
                     </h1>
+                    
+                    {/* Task 2: Designation */}
+                    <h2 className="text-xl md:text-2xl text-gray-400 font-semibold mb-4">
+                        Full Stack Developer
+                    </h2>
 
                     <p className="text-lg md:text-xl mb-6 leading-relaxed text-gray-300">
                         I am a fullstack developer specializing in creating engaging front-end
@@ -110,9 +117,39 @@ const Homepage = () => {
                         backend integration to deliver complete web solutions.
                     </p>
 
-                    <NavLink to="/about" className="inline-block text-xl">
-                        <MoreAboutButton />
-                    </NavLink>
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap items-center gap-4 mb-8">
+                        <NavLink to="/about" className="inline-block text-lg">
+                            <MoreAboutButton />
+                        </NavLink>
+                        
+                        {/* Task 3: Resume Download Button using Google Drive Link */}
+                        <a 
+                            href="https://drive.google.com/uc?export=download&id=1YuQl_pWqQAgotpM3h7f-FT8XXH-UTtEa" 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="inline-flex items-center space-x-2 font-semibold cursor-pointer px-5 py-2.5 rounded-lg transition-colors border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900"
+                        >
+                            <FaDownload className="text-sm" />
+                            <span>Download Resume</span>
+                        </a>
+                    </div>
+
+                    {/* Task 4: Social Links */}
+                    <div className="flex gap-6 text-2xl">
+                        <a href="https://github.com/miskaran2002" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                            <FaGithub />
+                        </a>
+                        <a href="https://linkedin.com/in/md-raihan-uddin-cse8/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#0077b5] transition-colors">
+                            <FaLinkedin />
+                        </a>
+                        <a href="https://x.com/MdRaihanUd57710" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#1da1f2] transition-colors">
+                            <FaTwitter />
+                        </a>
+                        <a href="https://www.facebook.com/miskatujjaman.raihan" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-[#1877f2] transition-colors">
+                            <FaFacebook />
+                        </a>
+                    </div>
                 </motion.div>
             </div>
         </section>
