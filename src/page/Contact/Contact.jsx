@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; 
+import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import { FaUser, FaEnvelope, FaPen, FaPaperPlane, FaPhoneAlt, FaWhatsapp, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 
@@ -43,10 +43,11 @@ const Contact = () => {
             const templateID = "template_sf9pyxi";
             const publicKey = "Njha-oR6G_xlbujsD";
 
+            // Updated templateParams to match your EmailJS template variables
             const templateParams = {
-                from_name: formData.name,
-                from_email: formData.email,
-                subject: formData.subject,
+                name: formData.name,
+                email: formData.email,
+                title: formData.subject, // Because your template uses {{title}} in the subject
                 message: formData.message,
             };
 
@@ -175,7 +176,7 @@ const Contact = () => {
                                     <a href="https://github.com/miskaran2002" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 text-gray-300 hover:text-white hover:bg-[#333] rounded-full flex items-center justify-center text-xl transition-all hover:scale-110">
                                         <FaGithub />
                                     </a>
-                                    <a href="https://www.linkedin.com/in/md-raihan-uddin-cse8/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 text-gray-300 hover:text-white hover:bg-[#0077b5] rounded-full flex items-center justify-center text-xl transition-all hover:scale-110">
+                                    <a href="https://www.linkedin.com/in/md-raihan-uddin" target="_blank" rel="noopener noreferrer" className="w-10 h-10 bg-gray-800 text-gray-300 hover:text-white hover:bg-[#0077b5] rounded-full flex items-center justify-center text-xl transition-all hover:scale-110">
                                         <FaLinkedin />
                                     </a>
                                 </div>
