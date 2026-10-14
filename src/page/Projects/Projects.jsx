@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaPlus, FaExternalLinkAlt, FaGithub, FaReact, FaNodeJs, FaCss3Alt, FaJs, FaVuejs } from "react-icons/fa";
 import { SiFirebase, SiTailwindcss, SiMongodb, SiExpress, SiMysql, SiNextdotjs, SiPrisma, SiPostgresql, SiTypescript } from "react-icons/si";
 
@@ -131,7 +131,7 @@ const Projects = () => {
         {
             id: "project5",
             name: "EchoServe",
-            screenshot: "https://i.ibb.co/hJ4BgJwj/Screenshot-2025-08-11-233732.png",
+            screenshot: "https://i.ibb.co.com/SwRSS6xp/image.png",
             techStack: "React, Firebase, Tailwind, NodeJS, MongoDB, Express",
             description: "EchoServe is a comprehensive service review platform connecting users with reliable service providers. It offers a seamless experience with real-time data synchronization. Users can browse, search, and filter services, while providers can manage profiles and respond to feedback, fostering a trustworthy community.",
             liveLink: "https://echo-serve.web.app/",
@@ -156,11 +156,13 @@ const Projects = () => {
     const openModal = (project) => {
         setActiveProject(project);
         setModalOpen(true);
+        document.body.style.overflow = 'hidden';
     };
 
     const closeModal = () => {
         setModalOpen(false);
         setActiveProject(null);
+        document.body.style.overflow = 'unset';
     };
 
     return (
@@ -180,7 +182,7 @@ const Projects = () => {
                     {projects.map((project, index) => (
                         <motion.div
                             key={project.id}
-                            className="relative rounded-2xl shadow-xl cursor-pointer overflow-hidden border border-gray-800 bg-gray-900 group"
+                            className="relative rounded-2xl shadow-xl cursor-pointer overflow-hidden border border-gray-800 bg-transparent group"
                             custom={index}
                             variants={slideVariants}
                             initial="hidden"
@@ -190,12 +192,13 @@ const Projects = () => {
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                         >
-                            <div className="h-64 sm:h-80 w-full overflow-hidden bg-black flex items-center justify-center p-4">
+                            {/* Card Image with Floating Animation (Full Width) */}
+                            <div className="h-64 sm:h-80 w-full overflow-hidden flex items-center justify-center bg-black/40">
                                 {project.screenshot ? (
                                     <motion.img
                                         src={project.screenshot}
                                         alt={`${project.name} Screenshot`}
-                                        className="w-full h-full object-contain transform group-hover:scale-105 transition duration-500"
+                                        className="w-full h-full object-cover object-top scale-105" // Full width/height & slight scale to hide edges during float
                                         variants={floatingVariants}
                                         animate="animate"
                                     />
@@ -207,23 +210,30 @@ const Projects = () => {
                                 )}
                             </div>
                             
-                            {/* Overlay Info on Hover */}
+                            {/* Overlay Info on Hover with Tech Stack */}
                             <div
-                                className={`absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/90 to-cyan-900/40 flex flex-col items-center justify-center gap-4 transition-all duration-300 ${
+                                className={`absolute inset-0 bg-cyan-900/90 flex flex-col items-center justify-center gap-4 transition-opacity duration-300 ${
                                     hoveredIndex === index ? "opacity-100 backdrop-blur-sm" : "opacity-0"
                                 }`}
                             >
-                                <h3 className="text-white text-3xl sm:text-4xl font-bold select-none text-center px-4 mb-2">{project.name}</h3>
-                                <div className="flex flex-wrap justify-center gap-2 px-6 mb-4 max-w-lg">
+                                <h3 className="text-white text-2xl sm:text-3xl font-bold select-none text-center px-4">{project.name}</h3>
+                                
+                                {/* Tech Stack displayed on Hover */}
+                                <div className="flex flex-wrap justify-center gap-2 px-6 max-w-lg">
                                     {renderTechPills(project.techStack).slice(0, 4)}
-                                    {project.techStack.split(',').length > 4 && <span className="text-xs text-gray-300 self-center">+ more</span>}
+                                    {project.techStack.split(',').length > 4 && (
+                                        <span className="flex items-center gap-2 bg-gray-800/80 border border-gray-700 px-3 py-1.5 rounded-full text-sm font-semibold text-gray-300">
+                                            +{project.techStack.split(',').length - 4} more
+                                        </span>
+                                    )}
                                 </div>
+
                                 <button
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         openModal(project);
                                     }}
-                                    className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 px-6 py-2.5 rounded-lg text-white font-semibold transition shadow-lg hover:shadow-cyan-500/25"
+                                    className="flex items-center gap-2 mt-2 bg-black bg-opacity-40 hover:bg-opacity-60 px-6 py-2.5 rounded-lg text-white font-semibold transition border border-white/20 shadow-lg"
                                 >
                                     View Details <FaPlus />
                                 </button>
@@ -233,59 +243,93 @@ const Projects = () => {
                 </motion.div>
             </div>
 
-            {/* Modal */}
-            {modalOpen && activeProject && (
-                <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-50 p-4 sm:p-6" onClick={closeModal}>
-                    <motion.div 
-                        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                        onClick={(e) => e.stopPropagation()}
-                        className="bg-gray-900 border border-gray-800 rounded-2xl max-w-4xl w-full p-6 sm:p-8 relative text-white overflow-y-auto max-h-[90vh] shadow-2xl custom-scrollbar"
+            {/* Modal - Top-to-Bottom Design */}
+            <AnimatePresence>
+                {modalOpen && activeProject && (
+                    <div 
+                        className="fixed inset-0 bg-black/90 backdrop-blur-sm flex justify-center items-center z-50 p-4 sm:p-6" 
+                        onClick={closeModal}
                     >
-                        <button
-                            onClick={closeModal}
-                            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-gray-800 hover:bg-red-500/20 text-gray-400 hover:text-red-400 rounded-full transition-colors z-10"
-                            aria-label="Close Modal"
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                            transition={{ duration: 0.3 }}
+                            onClick={(e) => e.stopPropagation()}
+                            className="bg-[#0f172a] border border-gray-800 rounded-2xl max-w-4xl w-full relative text-white overflow-y-auto max-h-[90vh] shadow-[0_0_40px_rgba(0,0,0,0.5)] custom-scrollbar flex flex-col"
                         >
-                            &times;
-                        </button>
+                            {/* Close Button */}
+                            <button
+                                onClick={closeModal}
+                                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-black/50 hover:bg-red-500/80 text-gray-300 hover:text-white rounded-full transition-colors z-20"
+                                aria-label="Close Modal"
+                            >
+                                &times;
+                            </button>
 
-                        <div className="flex flex-col lg:flex-row gap-8">
-                            {/* Left Col: Image & Links */}
-                            <div className="w-full lg:w-5/12 space-y-6">
-                                <div className="bg-black/50 rounded-xl p-4 border border-gray-800 h-64 sm:h-72 flex items-center justify-center overflow-hidden">
-                                    {activeProject.screenshot ? (
-                                        <img
-                                            src={activeProject.screenshot}
-                                            alt={activeProject.name}
-                                            className="w-full h-full object-contain rounded-md"
-                                        />
-                                    ) : (
-                                        <span className="text-gray-500">No Image Available</span>
-                                    )}
+                            {/* Top Image Banner */}
+                            <div className="w-full bg-black/40 pt-6 px-6 pb-0 flex justify-center border-b border-gray-800/50">
+                                {activeProject.screenshot ? (
+                                    <img
+                                        src={activeProject.screenshot}
+                                        alt={activeProject.name}
+                                        className="w-full max-w-3xl h-auto max-h-[350px] object-cover object-top rounded-t-lg shadow-xl"
+                                    />
+                                ) : (
+                                    <div className="w-full max-w-3xl h-64 bg-gray-900 rounded-t-lg flex items-center justify-center text-gray-500">
+                                        No Image Available
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="p-6 sm:p-8 space-y-6">
+                                {/* Title & Description */}
+                                <div>
+                                    <h3 className="text-3xl sm:text-4xl font-bold mb-4 text-white">{activeProject.name}</h3>
+                                    <p className="text-gray-300 leading-relaxed text-[15px] sm:text-base">
+                                        {activeProject.description}
+                                    </p>
                                 </div>
-                                
-                                <div className="flex flex-col gap-3">
+
+                                {/* Tech Stack Pills */}
+                                <div className="flex flex-wrap gap-2 py-2">
+                                    {renderTechPills(activeProject.techStack)}
+                                </div>
+
+                                {/* Extra Information */}
+                                <div className="bg-gray-800/30 p-5 rounded-lg border border-gray-700/30 space-y-4">
+                                    <div>
+                                        <span className="font-semibold text-cyan-400 block mb-1">Challenges Faced:</span>
+                                        <p className="text-sm text-gray-400 leading-relaxed">{activeProject.challenges}</p>
+                                    </div>
+                                    <div>
+                                        <span className="font-semibold text-cyan-400 block mb-1">Future Improvements:</span>
+                                        <p className="text-sm text-gray-400 leading-relaxed">{activeProject.improvements}</p>
+                                    </div>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex flex-wrap gap-4 pt-4 border-t border-gray-800">
                                     {activeProject.liveLink && (
                                         <a
                                             href={activeProject.liveLink}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center justify-center gap-2 bg-cyan-600 hover:bg-cyan-500 w-full py-3 rounded-lg font-semibold transition shadow-lg"
+                                            className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 px-6 py-2.5 rounded text-white font-bold transition shadow-lg hover:shadow-cyan-500/30"
                                         >
-                                            <FaExternalLinkAlt /> View Live Website
+                                            Live Demo <FaExternalLinkAlt size={14} />
                                         </a>
                                     )}
-                                    <div className="flex gap-3">
+                                    
+                                    <div className="flex gap-3 flex-wrap">
                                         {activeProject.githubClient && (
                                             <a
                                                 href={activeProject.githubClient}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 flex-1 py-3 rounded-lg font-semibold transition"
+                                                className="flex items-center gap-2 bg-[#1e293b] hover:bg-gray-700 border border-gray-600 px-6 py-2.5 rounded text-gray-200 font-bold transition"
                                             >
-                                                <FaGithub /> Client
+                                                <FaGithub size={18} /> GitHub Client
                                             </a>
                                         )}
                                         {activeProject.githubServer && (
@@ -293,45 +337,28 @@ const Projects = () => {
                                                 href={activeProject.githubServer}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 flex-1 py-3 rounded-lg font-semibold transition"
+                                                className="flex items-center gap-2 bg-[#1e293b] hover:bg-gray-700 border border-gray-600 px-6 py-2.5 rounded text-gray-200 font-bold transition"
                                             >
-                                                <FaGithub /> Server
+                                                <FaGithub size={18} /> GitHub Server
+                                            </a>
+                                        )}
+                                        {!activeProject.githubServer && !activeProject.githubClient && (activeProject.name === "Stockly" || activeProject.name === "RacipeRealm") && (
+                                             <a
+                                                href={activeProject.name === "Stockly" ? "https://github.com/miskaran2002/next-stockly-app" : "https://github.com/miskaran2002/recipe-reliem"}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex items-center gap-2 bg-[#1e293b] hover:bg-gray-700 border border-gray-600 px-6 py-2.5 rounded text-gray-200 font-bold transition"
+                                            >
+                                                <FaGithub size={18} /> GitHub
                                             </a>
                                         )}
                                     </div>
                                 </div>
                             </div>
-
-                            {/* Right Col: Details */}
-                            <div className="w-full lg:w-7/12">
-                                <h3 className="text-3xl sm:text-4xl font-bold mb-4 text-cyan-400">{activeProject.name}</h3>
-                                
-                                <div className="mb-6">
-                                    <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Tech Stack</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {renderTechPills(activeProject.techStack)}
-                                    </div>
-                                </div>
-
-                                <div className="space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base">
-                                    <div>
-                                        <h4 className="text-white font-semibold mb-2 border-b border-gray-800 pb-1">Overview</h4>
-                                        <p>{activeProject.description}</p>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-semibold mb-2 border-b border-gray-800 pb-1">Challenges Faced</h4>
-                                        <p>{activeProject.challenges}</p>
-                                    </div>
-                                    <div>
-                                        <h4 className="text-white font-semibold mb-2 border-b border-gray-800 pb-1">Future Improvements</h4>
-                                        <p>{activeProject.improvements}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                </div>
-            )}
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
         </section>
     );
 };
